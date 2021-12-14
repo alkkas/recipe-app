@@ -1,0 +1,88 @@
+//font
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap");
+$unit: 16px;
+
+//colors
+$background-color: #e5e5e5;
+$green: #2dc268;
+$gray: #b2b2b2;
+//fonts
+$large: 23px;
+$medium: 14px;
+$small: 12px;
+
+*:focus {
+  outline: 2px solid $green;
+}
+body {
+  background: $background-color;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+.content {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: $unit;
+}
+
+//logo styles
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    width: 70px;
+    display: block;
+    margin: 10px 10px 0 0;
+  }
+  &__title {
+    display: inline;
+    font-size: 23px;
+    font-weight: 800;
+  }
+}
+
+//header
+
+.header {
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: white;
+  width: 100vw;
+  .content {
+    padding: 5px $unit 5px;
+  }
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  &__items {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__title {
+    font-weight: 400;
+    font-size: 12px;
+    &--active {
+      color: $green;
+    }
+  }
+  &__img {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    height: 35px;
+    margin-bottom: 3px;
+    &--active {
+      path {
+        fill: $green;
+      }
+    }
+  }
+  &-desctop-field {
+    display: none;
+  }
+}

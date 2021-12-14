@@ -4,5 +4,61 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="shortcut icon", type="image/ico", href=require("../../images/common/logo.png").default)
         title Smiley Recipes
     body 
+        .wrapper
+            include ../common/logo
+            include ../common/header
+            main.main.content
+                section.search-field 
+                    input.search-field__input(type="text", placeholder="Search for recipes")
+                    article.search-field__results
+                        p.search-field__item result 1
+                        p.search-field__item result 2
+                        p.search-field__item result 3
+                section.recipe-articles 
+                    article.recipe-article(id="popular")
+                        h3.recipe-title Popular
+                        .recipe-article__items
+                            .recipe-article__item
+                                .recipe-article__header
+                                    button.add-to-fav.add-to-fav--white
+                                        include ../common/fav
+                                    button.check-fridge.check-fridge--white
+                                        span.check-fridge__nums
+                                            span.check-fridge__current 5
+                                            | /
+                                            span.check-fridge__whole 9
+                                        include ../common/fridge
+                                h2.recipe-article__title Backed Chicken Thighs
+                            .recipe-article__item
+                                .recipe-article__header
+                                    button.add-to-fav.add-to-fav--white
+                                        include ../common/fav
+                                    button.check-fridge.check-fridge--white
+                                        span.check-fridge__nums
+                                            span.check-fridge__current 5
+                                            | /
+                                            span.check-fridge__whole 9
+                                        include ../common/fridge
+                                h2.recipe-article__title Backed Chicken Thighs
+                            .recipe-article__item
+                                .recipe-article__header
+                                    button.add-to-fav.add-to-fav--white
+                                        include ../common/fav
+                                    button.check-fridge.check-fridge--white
+                                        span.check-fridge__nums
+                                            span.check-fridge__current 5
+                                            | /
+                                            span.check-fridge__whole 9
+                                        include ../common/fridge
+                                h2.recipe-article__title Backed Chicken Thighs
+                    article.recipe-article(id="breakfast")
+                section.settings
+                    p.settings__item Breakfast
+                    p.settings__item Lunch
+                    p.settings__item Dinner
+
+
+
