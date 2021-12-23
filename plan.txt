@@ -1,0 +1,7 @@
+Never thought that I'd do that but project is a little tricky 
+therefore I will split my goal into separate ones
+
+1. Create multipe recipes menu
+2. When I click on recipe pop up shows up and I can see recipe
+3. Make menu links work
+
