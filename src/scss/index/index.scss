@@ -44,6 +44,17 @@
     }
   }
   //search field dropdown results
+  &__more {
+    padding: 12px 10px;
+    border: 0px;
+    width: 100%;
+    color: #fff;
+    background: $green;
+    font-size: $medium;
+    text-align: center;
+    outline: none;
+    display: none;
+  }
   &__results {
     display: none;
     z-index: 10;

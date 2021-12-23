@@ -6,6 +6,8 @@ function importAll(r) {
   return r.keys().map(r);
 }
 importAll(require.context('../../images/common', false, /\.(png|jpe?g)$/));
+
+
 importAll(require.context('../../images/index', false, /\.(png|jpe?g)$/));
 
 //main sliders
@@ -23,7 +25,7 @@ const closeMenu = document.querySelector(".mobile-menu__close");
 
 
 menuBtn.addEventListener("click", event => {
-  menu.classList.add("mobile-menu--active")
+  menu.classList.add("mobile-menu--active");
   disableScroll();
 })
 
@@ -38,6 +40,7 @@ closeMenu.addEventListener("click", event => {
 
 
 //MAIN FUNCTIONS
+
 function disableScroll() {
   // Get the current page scroll position
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -53,33 +56,15 @@ function enableScroll() {
 }
 
 
+
 //send request function
 
 //variable for storing search object
 let currentSearch;
-function sendRequest(value) {
-  console.log("sending");
+function sendRequest(value, offset = 0) {
   return fetch(`https://api.spoonacular.com/recipes/complexSearch` +
-  `?apiKey=09588cc412154c64a11984033312e19d&query=${value}&number=5`)  
+  `?apiKey=09588cc412154c64a11984033312e19d&query=${value}&number=5&offset=${offset}`)  
   .then(response => response.json())
-  .then(data => {
-    toggleLoad(false);
-    //now show all data resived from server
-    currentSearch = data;
-    console.log(currentSearch)
-    searchItems.innerHTML = "";
-    if (data.results.length) {
-      for(let i of data.results) {
-        searchItems.innerHTML += `<a class="search-field__link" href="#" index="${data.results.indexOf(i)}"><p class="search-field__item">${i.title}</p></a>`
-      }
-    } else {
-      searchItems.innerHTML += `<p class="search-field__error">Nothing :(</p>`
-    }
-  })
-  .catch(err => {
-    toggleLoad(false);
-    searchItems.innerHTML = `<p class="search-field__error">Ooops... Error occured!</p>`
-  })
 }
 
 //debounce function for sendRequest 
@@ -139,11 +124,34 @@ function recipeCard(image, title, id) {
 
 //exactly the function that I send 
 let realRequest = requestDebounce(() => {
-  sendRequest(searchField.value);
+  sendRequest(searchField.value, 0)  
+  .then(data => {
+    toggleLoad(false);
+    //now show all data resived from server
+    currentSearch = data;
+    console.log(currentSearch)
+    searchItems.innerHTML = "";
+    if (data.results.length) {
+      showMore.style.display = "block"
+      for(let i of data.results) {
+        searchItems.innerHTML += `<a class="search-field__link" href="#" index="${data.results.indexOf(i)}"><p class="search-field__item">${i.title}</p></a>`;
+      }
+    } else {
+      showMore.style.display = "none"
+      searchItems.innerHTML += `<p class="search-field__error">Nothing :(</p>`;
+    }
+  })
+  .catch(err => {
+    toggleLoad(false);
+    showMore.style.display = "none"
+    console.log(err)
+    searchItems.innerHTML = `<p class="search-field__error">Ooops... Error occured!</p>`
+  });
 }, 2000);
 
 //function that toggle loading animation when data is receiving 
 function toggleLoad(value) {
+  showMore.style.display = "none"
   const load = document.querySelector(".search-field__loading");
   if (value) {
     load.style.display = "block";
@@ -152,6 +160,23 @@ function toggleLoad(value) {
   }}
 }
 
+
+//function that shows full field input results
+function fullRecipes() {
+  if(currentSearch) {
+    pages.forEach(e => {
+      document.querySelector(`#${e}`).classList.remove("recipe-article--active");
+    })
+    resultField.classList.remove("search-field__results--active");
+    search.classList.add("recipe-article--active");
+    const field = search.querySelector(".swiper-wrapper");
+    field.innerHTML = "";
+    searchSwiper = new Swiper(".search-swiper", {slidesPerView: "auto"})
+    for (let i of currentSearch.results) {
+      field.innerHTML += recipeCard(i.image, i.title, i.id);
+    }
+  }
+}
 //API KEY 09588cc412154c64a11984033312e19d
 //link https://api.spoonacular.com/recipes/716429/information ?apiKey=09588cc412154c64a11984033312e19d& 
 
@@ -161,13 +186,23 @@ const searchMain = document.querySelector(".search-field");
 const resultField = document.querySelector(".search-field__results");
 const searchField = document.querySelector(".search-field__input");
 const searchItems = document.querySelector(".search-field__items");
+const showMore = document.querySelector(".search-field__more")
 
 
+//ALL PAGES
 
+const pages = ["search", "popular", "breakfast"];
+const search = document.querySelector(`#search`);
 // In real project I'd ask the server for popular recipes 
 // but as long as I make this project alone without any support
 // I can't buy unlimited acces to spoontocular API 
-// Hence I just assume that I received recipes from serveer
+// Hence I just assume that I received recipes from server
+
+
+//add listener to show more button on search bar
+showMore.addEventListener("click", (e) => {
+  fullRecipes()
+})
 
 
 const popularRecipes = [
@@ -207,6 +242,7 @@ const popularContainer = document.querySelector("#popular .recipe-article__items
 
 
 let mainSwiper;
+let searchSwiper;
 window.onload = () => {
   popularContainer.innerHTML  = "";
   for( let i of popularRecipes) {
@@ -219,7 +255,9 @@ window.onload = () => {
 
 //search bar function
 document.addEventListener("click", (e) => {
-  if (!e.target.closest(".search-field")) {
+  if (e.target.className == "search-field__more") {
+    resultField.classList.remove("search-field__results--active");
+  } else if (!e.target.closest(".search-field")) {
     resultField.classList.remove("search-field__results--active");
     searchMain.classList.remove("search-field--active");
   } else if (e.target.closest(".search-field").querySelector(".search-field__item")) {
@@ -233,11 +271,8 @@ document.addEventListener("click", (e) => {
 
 
 searchField.addEventListener("keypress", (e) => {
-  console.log(e.key)
   if (e.code == "Enter") {
-    if (currentSearch) {
-      console.log("Hoorah!!!");
-    }
+    fullRecipes()
   } else {
     resultField.classList.add("search-field__results--active");
     searchItems.innerHTML = "";
