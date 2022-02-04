@@ -1,0 +1,90 @@
+
+include ../common/mixins
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="shortcut icon", type="image/ico", href=require("../../images/common/logo.png").default)
+        title Smiley Recipes
+    body.small
+        .wrapper
+            include ../common/logo
+            include ../common/header
+            article.mobile-menu
+                img.mobile-menu__close(src=require("../../images/index/close.png").default, alt="close button")
+                nav.mobile-menu__items 
+                    ul
+                        +menu_list("mobile-menu__item")
+            include ../common/recipe
+            main.main.content
+                +searchBar("search-field")
+                section.recipe-articles 
+                    article.recipe-article(id="search")
+                        h3.recipe-title Search
+                        .recipe-article__items
+                            .swiper.search-swiper
+                                .swiper-wrapper
+                                <!-- If we need pagination -->
+                                .swiper-pagination
+
+                                <!-- If we need navigation buttons -->
+                                .swiper-button-prev
+                                .swiper-button-next
+                    article.recipe-article.recipe-article--active(id="popular")
+                        h3.recipe-title Popular
+                        .recipe-article__items
+                            .swiper.popular-swiper
+                                .swiper-wrapper
+                                    .recipe-article__item.swiper-slide
+                                        img.recipe-article__background(src=require("../../images/index/chicken.jpg").default, alt="recipe photo")
+                                        .recipe-article__header
+                                            button.add-to-fav.add-to-fav--white
+                                                include ../common/fav
+                                            button.check-fridge.check-fridge--white
+                                                span.check-fridge__nums
+                                                    span.check-fridge__current 5
+                                                    | /
+                                                    span.check-fridge__whole 9
+                                                include ../common/fridge
+                                        h2.recipe-article__title Backed Chicken Thighs
+                                    .recipe-article__item.swiper-slide
+                                        .recipe-article__header
+                                            button.add-to-fav.add-to-fav--white
+                                                include ../common/fav
+                                            button.check-fridge.check-fridge--white
+                                                span.check-fridge__nums
+                                                    span.check-fridge__current 5
+                                                    | /
+                                                    span.check-fridge__whole 9
+                                                include ../common/fridge
+                                        h2.recipe-article__title Backed Chicken Thighs
+                                    .recipe-article__item.swiper-slide
+                                        .recipe-article__header
+                                            button.add-to-fav.add-to-fav--white
+                                                include ../common/fav
+                                            button.check-fridge.check-fridge--white
+                                                span.check-fridge__nums
+                                                    span.check-fridge__current 5
+                                                    | /
+                                                    span.check-fridge__whole 9
+                                                include ../common/fridge
+                                        h2.recipe-article__title Backed Chicken Thighs
+                                
+                                <!-- If we need pagination -->
+                                .swiper-pagination
+
+                                <!-- If we need navigation buttons -->
+                                .swiper-button-prev
+                                .swiper-button-next
+                section.settings
+                    .menu 
+                        img(src=require("../../images/index/menu.png").default, alt="menu")
+                    p.settings__item(searched) Breakfast
+                    p.settings__item(searched) Dinner
+                    p.settings__item(searched) Lunch
+                    p.settings__item(searched) Popular
+                    p.settings__item(searched) Fat Free
+
+
+

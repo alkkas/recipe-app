@@ -1,0 +1,154 @@
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .logo {
+    padding: 15px 15px 30px 15px;
+  }
+  .header {
+    .content {
+      padding: 0;
+    }
+    position: relative;
+    &-desctop {
+      display: block;
+      width: 100%;
+      max-width: 350px;
+      position: relative;
+      &::before {
+        content: url("assets/images/common/magnifying-glass-white.png");
+        position: absolute;
+        top: 50%;
+        left: 7px;
+        transform: translateY(-50%);
+      }
+      &__input {
+        width: 100%;
+        height: 35px;
+        background: $green;
+        border-radius: 50px;
+        border: 0px;
+        padding: 5px 15px 5px 35px;
+        color: #fff;
+        font-size: $small;
+        &:focus + .header-desctop__results {
+          visibility: visible;
+          opacity: 1;
+        }
+        &::placeholder {
+          color: #fff;
+          opacity: 0.5;
+          font-weight: normal;
+        }
+      }
+      &__results {
+        visibility: hidden;
+        opacity: 0;
+        border: 2px solid $green;
+        width: 100%;
+        position: absolute;
+        top: 40px;
+        height: 150px;
+        overflow-y: scroll;
+        background: #fff;
+      }
+      &__item {
+        padding: 8px 0;
+        background: #fff;
+        color: $gray;
+        text-align: center;
+      }
+      &__more {
+        display: none;
+        width: 100%;
+        padding: 7px 0;
+        background: $green;
+        color: #fff;
+        border: 0;
+        &--active {
+          display: block;
+        }
+      }
+      &__loading {
+        display: none;
+        width: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        circle {
+          fill: $green;
+        }
+        &--active {
+          display: block;
+        }
+      }
+      &__link {
+        text-decoration: none;
+      }
+    }
+    &-desctop-field,
+    &-desctop-menu {
+      display: block;
+    }
+    &-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 16px 5px 16px;
+    }
+    &__item {
+      flex-flow: row nowrap;
+      margin-right: 30px;
+    }
+    &__img {
+      order: 2;
+    }
+    &__title {
+      order: 1;
+      margin-right: 5px;
+    }
+    &-desctop-menu {
+      &__items {
+        display: flex;
+        justify-content: space-between;
+      }
+      &__item {
+        cursor: pointer;
+        width: 20%;
+        text-align: center;
+        padding: 7px 0;
+        color: #fff;
+        background: $green;
+        font-size: $medium;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .swiper-wrapper {
+    flex-flow: row wrap;
+    justify-content: start;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 767px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .header-desctop-menu {
+    background-color: $green;
+    &__item {
+      width: auto;
+      padding: 0.6 * $unit 0.9 * $unit;
+    }
+    &__items {
+      justify-content: center;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}

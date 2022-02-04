@@ -1,0 +1,69 @@
+@import "../common/normolize";
+@import "../common/main";
+
+.main {
+  padding-bottom: 60px;
+}
+.fridge {
+  &__title {
+    font-size: $large;
+    font-weight: 300;
+    margin: 0 0 $unit 0;
+  }
+  &-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  &__add {
+    font-size: $medium;
+    font-weight: 600;
+    padding: $unit 1.1 * $unit;
+    background-color: $green;
+    border: none;
+    border-radius: 60px;
+    color: #fff;
+    margin-left: 10px;
+    &:focus {
+      outline: 2px solid #fff;
+    }
+  }
+  &__line {
+    border: 2px solid $green;
+    margin-bottom: $unit;
+  }
+  &__del {
+    width: 2 * $unit;
+    height: 2 * $unit;
+    border-radius: 100px;
+    background: $red;
+    border: 0;
+    svg {
+      margin: 0 auto;
+    }
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.17);
+    margin-bottom: $unit;
+    border-radius: 100px;
+  }
+  &__name {
+    font-size: $unit;
+    font-weight: 400;
+    margin-left: $unit;
+  }
+  &__search {
+    width: 100%;
+  }
+}
+.search-field {
+  &__results {
+    width: calc(100vw - $unit * 2);
+    bottom: -160px;
+  }
+}

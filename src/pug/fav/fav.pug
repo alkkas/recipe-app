@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="shortcut icon", type="image/ico", href=require("../../images/common/logo.png").default)
+        title Smiley Recipes〢Favourite
+    body         
+        .wrapper
+            include ../common/logo
+            include ../common/header
+            include ../common/recipe
+            main.fav__main 
+                h1.fav__title Favourite 
+                section.fav__items
+                    article.fav__item 
+                        img.fav__img(src=require("../../images/index/chicken.jpg").default, alt="")
+                        button.fav__heart 
+                            include ../common/fav.pug
+                        h3.fav-item__title Backed chicken thighs
+                        button.fav__fridge 
+                            include ../common/fridge.pug
+                            span.fav-fridge__nums
+                                span.fav-fridge__real 5
+                                | /
+                                span.fav-fridge__all 9
+                            

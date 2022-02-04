@@ -1,0 +1,19 @@
+mixin menu_list(name)
+    li(class=name searched) Breakfast
+    li(class=name searched) Dinner
+    li(class=name searched) Lunch
+    li(class=name searched) Popular
+    li(class=name searched) Fat Free
+
+mixin searchBar(name)
+    section(class=name)
+        input(type="text", placeholder="Search for recipes" class=`${name}__input`)
+        <!--hidden results field for header search--!>
+        article(class=`${name}__results`)
+            dev(class=`${name}__loading`)
+                include ../common/loader
+            div(class=`${name}__items`)
+                //- p.search-field__item result 1
+                //- p.search-field__item result 2
+                //- p.search-field__item result 3
+            button(class=`${name}__more`) Show More...

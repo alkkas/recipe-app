@@ -1,0 +1,344 @@
+//font
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap");
+
+ul {
+  list-style: none;
+}
+* {
+  transition: 0.2s ease all;
+  &:focus {
+    outline: 2px solid $green;
+  }
+}
+
+body {
+  background: $background-color;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+.content {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: $unit;
+}
+
+//logo styles
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    width: 70px;
+    display: block;
+    margin: 10px 10px 0 0;
+  }
+  &__title {
+    display: inline;
+    font-size: $large;
+    font-weight: 800;
+  }
+}
+
+//header
+
+.header {
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: white;
+  width: 100%;
+  .content {
+    padding: 5px $unit 5px;
+  }
+  &-desctop {
+    display: none;
+  }
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    &--active {
+      .header__img {
+        path {
+          fill: $green;
+        }
+      }
+      .header__title {
+        color: $green;
+      }
+    }
+  }
+  &__items {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__title {
+    font-weight: 400;
+    font-size: $small;
+  }
+  &__img {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    height: 35px;
+    margin-bottom: 3px;
+  }
+  &-desctop-field {
+    display: none;
+  }
+  &-desctop-menu {
+    display: none;
+  }
+}
+.settings {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  margin: 1.8 * $unit 0;
+  margin-right: -$unit;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-flow: row nowrap;
+  overflow-y: scroll;
+  &__item {
+    white-space: nowrap;
+    font-size: $medium;
+    padding: 8px 15px;
+    background: $green;
+    margin-left: $unit;
+    color: #fff;
+    border-radius: 10px;
+  }
+}
+//recipe desc
+.recipe-desc {
+  position: relative;
+  z-index: 30;
+  border-radius: 10px 10px 0 0;
+  background: $background-color;
+  max-width: 590px;
+  margin: 6 * $unit auto 0 auto;
+  &__scroll {
+    overflow: scroll;
+    border: 1px solid transparent;
+    height: 100%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      height: 100%;
+      z-index: 20;
+      background: linear-gradient(
+        360deg,
+        rgba(0, 0, 0, 0.69) 0%,
+        rgba(0, 0, 0, 0) 108.51%
+      );
+    }
+    &--active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__header {
+    * {
+      position: relative;
+      z-index: 20;
+    }
+    padding: 15px;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    position: relative;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        360deg,
+        rgba(0, 0, 0, 0.69) 0%,
+        rgba(0, 0, 0, 0) 108.51%
+      );
+      z-index: 15;
+    }
+  }
+  &-ing {
+    padding: 15px;
+    &__title {
+      font-size: 18px;
+      font-weight: 400;
+    }
+    &__container {
+      list-style-type: disc;
+      margin: $unit 0 0 $unit;
+    }
+    &__item {
+      margin: 5px 0;
+      font-size: $medium;
+    }
+  }
+  &-ins {
+    padding: 15px 15px 15px 25px;
+    &__title {
+      font-size: 18px;
+      font-weight: 400;
+    }
+    &__wrapper {
+      font-size: $medium;
+      margin: $unit 0 0 0;
+      li {
+        margin: 7px 0;
+      }
+    }
+  }
+  &__small {
+    font-size: 8px;
+  }
+  &__desc {
+    color: $red;
+    text-align: center;
+    padding: 15px;
+  }
+  &__nutr {
+    font-size: $medium;
+    margin: 5px 0;
+    font-weight: 300;
+  }
+  &__title {
+    font-size: $large;
+    font-weight: 800;
+    margin: $unit * 1.7 0;
+  }
+  &__back {
+    cursor: pointer;
+    display: block;
+    margin: $unit 0 0 0;
+    transform: rotate(-90deg);
+  }
+  &__background {
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+//search fields
+.search-field {
+  position: relative;
+  margin: $unit 0;
+  &::before {
+    content: url("assets/images/common/magnifying-glass.png");
+    width: 18px;
+    display: block;
+    position: absolute;
+    top: 51%;
+    left: $unit;
+    transform: translate(0, -50%);
+    z-index: 10;
+    transition: 0.2s all ease;
+  }
+  &__input {
+    width: 100%;
+    border-radius: 50px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.17);
+    border: 0px;
+    position: relative;
+    padding: $unit * 0.9 $unit * 0.5 $unit * 0.9 $unit * 3;
+    color: $gray;
+    font-size: $medium;
+    transition: 0.2s ease all;
+    &::placeholder {
+      color: $gray;
+    }
+  }
+  &--active {
+    &::before {
+      left: 90%;
+    }
+    .search-field__input {
+      padding: $unit * 0.9 $unit * 3 $unit * 0.9 $unit * 0.7;
+    }
+  }
+  //search field dropdown results
+  &__more {
+    padding: 12px 10px;
+    border: 0px;
+    width: 100%;
+    color: #fff;
+    background: $green;
+    font-size: $medium;
+    text-align: center;
+    outline: none;
+    display: none;
+  }
+  &__results {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    bottom: -155px;
+    height: 150px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.17);
+    &--active {
+      display: block;
+    }
+  }
+  &__error {
+    color: $red;
+    margin-top: 30px;
+    text-align: center;
+  }
+  &__link {
+    text-decoration: none;
+    display: block;
+  }
+  &__item {
+    padding: 12px 10px;
+    font-size: $medium;
+    color: $gray;
+  }
+  &__loading {
+    display: none;
+    width: 90px;
+    height: 30px;
+    margin: 2 * $unit auto 0;
+    display: none;
+    &--active {
+      display: block;
+    }
+    circle {
+      fill: $green;
+    }
+  }
+}
+.swiper-wrapper {
+  height: auto;
+}

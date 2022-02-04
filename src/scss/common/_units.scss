@@ -1,0 +1,11 @@
+//colors
+$background-color: #e5e5e5;
+$green: #2dc268;
+$gray: #b2b2b2;
+$red: #ec3939;
+$unit: clamp(16px, 19px, 25px);
+
+//fonts
+$large: clamp(23px, calc(23px + 0.5vh), 35px);
+$medium: clamp(14px, calc(12px + 0.5vh), 25px);
+$small: clamp(12px, calc(10px + 0.5vh), 18px);

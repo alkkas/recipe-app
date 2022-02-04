@@ -1,0 +1,27 @@
+include ../common/mixins
+
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="shortcut icon", type="image/ico", href=require("../../images/common/logo.png").default)
+        title Smiley Recipes〢Fridge
+    body         
+        .wrapper
+            include ../common/logo
+            include ../common/header
+            main.main.content
+                h1.fridge__title What's in your fridge?
+                section.fridge-btns
+                    article.fridge__search
+                        +searchBar("search-field")
+                    button.fridge__add add
+                hr.fridge__line
+                section.fridge__items 
+                    //- article.fridge__item 
+                    //-     h3.fridge__name Chicken
+                    //-     button.fridge__del 
+                    //-         include ../common/delete
+            

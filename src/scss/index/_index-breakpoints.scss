@@ -1,0 +1,49 @@
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .settings,
+  .search-field {
+    display: none;
+  }
+  .wrapper {
+    padding-bottom: 0;
+  }
+
+  .swiper-wrapper {
+    transform: none !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 258px);
+    grid-auto-rows: auto;
+    justify-content: center;
+    gap: $unit;
+  }
+  .recipe-articles {
+    margin-right: 0;
+  }
+  .recipe-article {
+    &__item {
+      max-width: 288px;
+      margin-right: 0;
+      // &:nth-child(2n) {
+      //   justify-self: start;
+      // }
+      // &:nth-child(2n + 1) {
+      //   justify-self: end;
+      // }
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .swiper-wrapper {
+    grid-template-columns: repeat(auto-fill, 288px);
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}

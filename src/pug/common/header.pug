@@ -1,0 +1,23 @@
+include mixins
+
+header.header 
+    .header-wrapper.content 
+        .header-flex
+            .header__items
+                a.header__item.header__item--active(href="index.html")
+                    .header__img
+                        include list
+                    h4.header__title Recipes
+                a.header__item(href="fav.html")
+                    .header__img
+                        include fav
+                    h4.header__title Favourite
+                a.header__item(href="fridge.html")
+                    .header__img
+                        include fridge 
+                    h4.header__title Fridge
+            +searchBar("header-desctop")
+        .header-desctop-menu
+            ul.header-desctop-menu__items
+                +menu_list("header-desctop-menu__item")
+            
