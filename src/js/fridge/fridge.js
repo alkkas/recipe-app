@@ -11,19 +11,18 @@ commonActions();
 
 
 //make button active in header
-
 document.querySelectorAll(".header__item").forEach(e => {
     e.classList.remove("header__item--active");
 })
 document.querySelector(`.header__item[href="fridge.html"]`).classList.add("header__item--active");
 
-//fix placeholder
 
+
+//fix placeholder
 document.querySelector(".search-field__input").setAttribute("placeholder", "add ingredients...")
 
 
 //MAIN FUNCTIONS
-
 function toggleLoad(value) {
     if (value) {
       load.classList.add("search-field__loading--active");
