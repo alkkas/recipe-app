@@ -2,6 +2,6 @@
 Recipe App using Vanilla JS
 
 
-#Installation
+# Installation:
 
 npm run start
