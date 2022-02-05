@@ -1,15 +1,10 @@
 import "../../pug/fav/fav.pug";
-
 import "../../scss/fav/fav.scss";
-
-
-
-
 importAll(require.context('../../images/fridge', false, /\.(png|jpe?g)$/));
-
 import {getLocal, setLocal, importAll, commonActions, 
   disableScroll, openRecipe} from "../shared";
 
+  
 commonActions();
 
 
@@ -20,19 +15,18 @@ document.querySelectorAll(".header__item").forEach(e => {
 document.querySelector(`.header__item[href="fav.html"]`).classList.add("header__item--active");
 
 
+
 //MAIN VARIABLES
 const recipe = document.querySelector(".recipe-desc__wrapper");
 const field = document.querySelector(".fav__items");
+
+
 //MAIN FUNCTIONS
-
-  
-
-
 function getFav(item) {
+
   let itemsCount = 0;
   let fridgeItems = getLocal()["fridge"].map(e => e.name);
-  let ings = item.extendedIngredients.map(e => e.name);
-  console.log(ings, fridgeItems)
+  let ings = item?.extendedIngredients.map(e => e.name);
   for (let i of fridgeItems) {
     for (let k of ings) {
       i = i.toLowerCase();
@@ -87,6 +81,7 @@ function getFav(item) {
 //a little changed bindListeners function
 function bindListeners() {
     document.querySelectorAll(".fav__item").forEach(e => {
+      
       //check if recipe exists in localStorage
       e.addEventListener("click", event =>  {
         if (event.target.closest(".fav__heart")) {
@@ -117,6 +112,7 @@ function bindListeners() {
     })
 }
 
+
 window.onload = () => {
     let data = getLocal()["favs"];
     field.innerHTML = "";
@@ -132,4 +128,3 @@ window.onload = () => {
 
     bindListeners();
 }
-console.log(getLocal())

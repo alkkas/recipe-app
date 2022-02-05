@@ -2,32 +2,18 @@
 import "swiper/scss"
 import "../../scss/index/index.scss"
 import "../../pug/index/index.pug"
-
 importAll(require.context('../../images/index', false, /\.(png|jpe?g)$/));
-
-//main sliders
 import Swiper from "swiper";
-
-
-
 import {getLocal, setLocal, importAll, commonActions, 
   disableScroll, openRecipe, enableScroll, popularRecipes} from "../shared";
-
-
-//function for desktop js
-import {main} from "./breakpoints";
-
-
 
 commonActions();
 
 
 //menu toggle
-
 const menuBtn = document.querySelector(".menu");
 const menu = document.querySelector(".mobile-menu");
 const closeMenu = document.querySelector(".mobile-menu__close");
-
 
 menuBtn.addEventListener("click", event => {
   menu.classList.add("mobile-menu--active");
@@ -40,16 +26,17 @@ closeMenu.addEventListener("click", event => {
 })
 
 
-
-//search bar implimintation
-
-
 //MAIN FUNCTIONS
 //send request function
-//variable for storing search object
 
 
+//variables for storing search object
 let currentSearch;
+
+
+
+//this variable is needed for loading more recipes
+//of the same search input if necessary
 let lastValue  = "";
 function sendRequest(value, offset = 0) {
   lastValue = value;
@@ -57,6 +44,7 @@ function sendRequest(value, offset = 0) {
   `?apiKey=09588cc412154c64a11984033312e19d&query=${value}&number=5&offset=${offset}&fillIngredients=true`)  
   .then(response => response.json())
 }
+
 
 //debounce function for sendRequest 
 function requestDebounce(func, delay) {
@@ -168,14 +156,14 @@ let realRequest = requestDebounce((bar, field, loader, container, name, btn) => 
 }, 2000);
 
 //function that toggle loading animation when data is receiving 
-
-
 function removeAllFields() {
   pages.forEach(e => {
     document.querySelector(`#${e}`).classList.remove("recipe-article--active");
   })
 }
 
+
+//shows recipes block on the page
 function showRecipes(arr, element) {
   try {
     document.querySelector(".show-more").remove();
@@ -209,8 +197,6 @@ function addElementsToSearch(value = false ) {
 }
 
 
-
-
 //function that shows full field input results
 function fullRecipes(field, name) {
   if (currentSearch) {
@@ -231,9 +217,6 @@ function setRecipeToLocal(recipe, data) {
       console.log(getLocal())
     })
 };
-
-
-
 
 
 function bindListeners() {
@@ -366,16 +349,8 @@ const searchItems = document.querySelector(".search-field__items");
 const showMore = document.querySelector(".search-field__more");
 const recipe = document.querySelector(".recipe-desc__wrapper");
 const load = document.querySelector(".search-field__loading");
-//ALL PAGES
-
 const pages = ["search", "popular"];
 const search = document.querySelector(`#search`);
-// In real project I'd ask the server for popular recipes 
-// but as long as I make this project alone without any support
-// I can't buy unlimited acces to spoontocular API 
-// Hence I just assume that I received recipes from server
-
-
 
 //when page load I show popular recipes
 const popularContainer = document.querySelector("#popular .recipe-article__items .swiper-wrapper");
@@ -383,8 +358,24 @@ const popularContainer = document.querySelector("#popular .recipe-article__items
 
 let mainSwiper;
 
-
+//this function listens for any value in input and sends requests to server
 searchBarListener(searchField, resultField, load, searchItems, "search-field", showMore);
+
+
+//desctop search 
+const descSearchBar = document.querySelector(".header-desctop__input"),
+descResultField = document.querySelector(".header-desctop"),
+descLoader = document.querySelector(".header-desctop__loading"),
+descSearchItems = document.querySelector(".header-desctop__items"),
+descShowMore = document.querySelector(".header-desctop__more");
+
+searchBarListener(descSearchBar, descResultField, 
+  descLoader, descSearchItems, "header-desctop", descShowMore);
+
+descShowMore.addEventListener("click", (e) => {
+  fullRecipes(descResultField, "header-desctop");
+})
+
 
 
 //add listener to show more button on search bar
@@ -395,7 +386,7 @@ showMore.addEventListener("click", (e) => {
 
 
 
-//search bar function
+//I wall change this mass later
 document.addEventListener("click", (e) => {
   if (e.target.className == "search-field__more") {
     resultField.classList.remove("search-field__results--active");
@@ -417,40 +408,48 @@ searchField.addEventListener("keydown", (e) => {
     resultField.classList.remove("search-field__results--active");
   }
 })
-//mobile menu
+
+
+
 const searchedElements =  document.querySelectorAll("*[searched]");
+function desctopAddElements(text) {
+  removeAllFields();
+  if (text != "Popular") {
+    menu.classList.remove("mobile-menu--active");
+    enableScroll()
+    search.classList.add("recipe-article--active");
+    search.querySelector(".recipe-title").innerHTML = text;
+    sendRequest(text).then(data => {
+      currentSearch = data;
+      addElementsToSearch();
+    })
+    .catch(err => console.log(err))
+  } else {
+    popular.classList.add("recipe-article--active");
+    popularContainer.innerHTML  = "";
+    for (let i of popularRecipes) {
+      popularContainer.innerHTML += recipeCard(i.image, i.title, i.id, i.missedIngredients);
+    }
+    mainSwiper = new Swiper(".popular-swiper", {slidesPerView: "auto"});
+  }
+  bindListeners();
+}
 
 
 searchedElements.forEach(elem => {
   elem.addEventListener("click", event => {
-    removeAllFields();
-    if (elem.textContent != "Popular") {
-      menu.classList.remove("mobile-menu--active");
-      enableScroll()
-      search.classList.add("recipe-article--active");
-      search.querySelector(".recipe-title").innerHTML = elem.textContent;
-
-
-      sendRequest(elem.textContent).then(data => {
-        currentSearch = data;
-        addElementsToSearch();
-      })
-      .catch(err => console.log(err))
-    } else {
-      popular.classList.add("recipe-article--active");
-      popularContainer.innerHTML  = "";
-      for (let i of popularRecipes) {
-        popularContainer.innerHTML += recipeCard(i.image, i.title, i.id, i.missedIngredients);
-      }
-      mainSwiper = new Swiper(".popular-swiper", {slidesPerView: "auto"});
-    }
-    bindListeners();
+    event.preventDefault();
+    desctopAddElements(elem.textContent);
   })
 })
 
 
 
 window.onload = () => {
+  let searchContent = window.location.href.split("=")[1]?.split("%20").join(" ");
+  if (searchContent) {
+    desctopAddElements(searchContent)
+  }
   popularContainer.innerHTML  = "";
   for (let i of popularRecipes) {
     popularContainer.innerHTML += recipeCard(i.image, i.title, i.id, i.missedIngredients);
@@ -467,9 +466,8 @@ window.onload = () => {
   }
 }
 
-
-
 window.onresize = function() {
+
   if (window.innerWidth >= 576) {
     console.log("done")
     if (searchSwiper) searchSwiper.disable();
@@ -480,23 +478,4 @@ window.onresize = function() {
   }
 }
 
-
-//desctop search                           bar, field, loader, container, name
-// probably need to do mixin in scss for all classes and chierarchy match
-
-
-const descSearchBar = document.querySelector(".header-desctop__input"),
-descResultField = document.querySelector(".header-desctop")
-const descLoader = document.querySelector(".header-desctop__loading");
-const descSearchItems = document.querySelector(".header-desctop__items");
-const descShowMore = document.querySelector(".header-desctop__more");
-
-
-searchBarListener(descSearchBar, descResultField, 
-  descLoader, descSearchItems, "header-desctop", descShowMore);
-
-
-descShowMore.addEventListener("click", (e) => {
-  fullRecipes(descResultField, "header-desctop");
-})
 

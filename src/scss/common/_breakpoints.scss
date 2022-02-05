@@ -116,11 +116,19 @@
         width: 20%;
         text-align: center;
         padding: 7px 0;
-        color: #fff;
+
         background: $green;
         font-size: $medium;
         &:hover {
           text-decoration: underline;
+        }
+        a,
+        a:hover,
+        a:focus,
+        a:active,
+        a:visited {
+          color: #fff;
+          text-decoration: none;
         }
       }
     }

@@ -3,7 +3,7 @@ import "../../pug/fridge/fridge.pug"
 import "../../scss/fridge/fridge.scss"
 
   
-  
+//importing pictures from specific folder 
 importAll(require.context('../../images/fridge', false, /\.(png|jpe?g)$/));
   
 import {getLocal, setLocal, importAll, commonActions} from "../shared";
@@ -24,11 +24,9 @@ document.querySelector(".search-field__input").setAttribute("placeholder", "add 
 
 //MAIN FUNCTIONS
 function toggleLoad(value) {
-    if (value) {
-      load.classList.add("search-field__loading--active");
-    } else {
-      load.classList.remove("search-field__loading--active");
-    }
+    value 
+      ? load.classList.add("search-field__loading--active")
+      : load.classList.remove("search-field__loading--active");
 }
 
 function sendRequest(value, offset = 0) {
@@ -36,6 +34,8 @@ function sendRequest(value, offset = 0) {
     `?apiKey=09588cc412154c64a11984033312e19d&query=${value}&number=10&offset=${offset}`)  
     .then(response => response.json())
 }
+
+
 function getFridgeItem(name, id) {
   return `
   <article class="fridge__item" data_id="${id}"> 
@@ -82,6 +82,8 @@ function addToSearch(name, id) {
     document.querySelector(`.fridge__del[data_id="${id}"]`).addEventListener("click", deleteElement)
   }
 }
+
+
 let realRequest = requestDebounce(() => {
     sendRequest(searchField.value, 0) 
     .then(data => {
@@ -108,16 +110,11 @@ let realRequest = requestDebounce(() => {
             searchField.value = "";
           }
         })
-      } else {
-        showMore.style.display = "none"
-        searchItems.innerHTML += `<p class="search-field__error">Nothing :(</p>`;
       }
     })
     .catch(err => {
       toggleLoad(false);
-      showMore.style.display = "none"
       console.log(err)
-      searchItems.innerHTML = `<p class="search-field__error">Ooops... Error occured!</p>`
     });
 }, 2000);
 

@@ -1,9 +1,22 @@
-mixin menu_list(name)
-    li(class=name searched) Breakfast
-    li(class=name searched) Dinner
-    li(class=name searched) Lunch
-    li(class=name searched) Popular
-    li(class=name searched) Fat Free
+mixin menu_list(name, href)
+    if href
+        li(class=name)
+            a(href="/index.html?search=Breakfast" searched) Breakfast
+        li(class=name) 
+            a(href="/index.html?search=Dinner" searched) Dinner
+        li(class=name) 
+            a(href="/index.html?search=Lunch" searched) Lunch
+        li(class=name) 
+            a(href="/index.html?search=Popular" searched) Popular
+        li(class=name) 
+            a(href="/index.html?search=Fat Free" searched) Fat Free
+    else 
+        li(class=name searched) Breakfast
+        li(class=name searched) Dinner
+        li(class=name searched) Lunch
+        li(class=name searched) Popular
+        li(class=name searched) Fat Free
+
 
 mixin searchBar(name)
     section(class=name)
